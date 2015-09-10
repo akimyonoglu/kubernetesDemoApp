@@ -1,8 +1,10 @@
 FROM alpine
 
-RUN apk add --update python && rm -rf /var/cache/apk/*
+RUN apk add --update python python-dev py-pip && rm -rf /var/cache/apk/*
 
 WORKDIR /src
-ADD ./src .
+COPY ./src .
 
-CMD ["python", "-m", "SimpleHTTPServer", "8000"]
+RUN pip install -r requirements.txt
+
+CMD ["python", "app.py"]
